@@ -1,0 +1,42 @@
+name: Deploy ECS Infrastructure, update ECR 
+run-name: ${{ github.actor }} is sweating and praying ...
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    
+env:
+  TF_VERSION: 1.5.0 
+  AWS_ECR_TGT: ${{ vars.AWS_USER_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${{ vars.AWS_ECR_REPO_NAME }}  
+    
+jobs:
+      
+  docker-build-upload-terraform-ecs:        
+    name: 'Docker build, terraform ECS'      
+    runs-on: ubuntu-latest
+    environment: dev
+              
+    permissions:
+      contents: read
+      id-token: write          
+          
+    steps:          
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}           
+    
+      - name: Building docker image, uploading to ECR
+        run: |   
+          docker build -t ${{ env.AWS_ECR_REPO_NAME }} .
+          docker tag ${{ env.AWS_ECR_REPO_NAME }}:latest ${{ env.AWS_ECR_TGT }}:latest
+          docker push ${{ env.AWS_ECR_TGT }}:latest
