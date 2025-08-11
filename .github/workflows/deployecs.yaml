@@ -61,7 +61,7 @@ jobs:
           
         run: |
           terraform init
-          terraform plan -no-color -target=aws_ecr_repository.mynginx -out=tfplan
+          terraform plan -no-color -target=aws_ecr_repository.nginxposp -out=tfplan
           terraform apply -auto-approve -no-color tfplan         
           
       - name: Building docker image, uploading to ECR
