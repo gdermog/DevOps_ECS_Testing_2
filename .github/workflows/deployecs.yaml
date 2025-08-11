@@ -11,8 +11,8 @@ env:
   AWS_ECR_TGT: ${{ vars.AWS_USER_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com  
     
 jobs:
-      
-  docker-build-upload-terraform-ecs:        
+
+  docker-build-upload-terraform-ecs:
     name: 'Docker build, terraform ECS'      
     runs-on: ubuntu-latest
     environment: dev
@@ -83,9 +83,9 @@ jobs:
 #        context: .
 #        tags: ${{ env.AWS_ECR_TGT }}/${{ vars.AWS_ECR_REPO_NAME }}:latest       
 
-    - name: Terraform deploy
-      working-directory: terraform/
-      env:
+      - name: Terraform deploy
+        working-directory: terraform/
+        env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ vars.AWS_REGION }}
@@ -99,7 +99,7 @@ jobs:
           TF_INPUT: false
           TF_WORKSPACE: dev
           
-      run: |
-        terraform init
-        terraform plan -no-color -out=tfplan
-        terraform apply -auto-approve -no-color tfplan     
+        run: |
+          terraform init
+          terraform plan -no-color -out=tfplan
+          terraform apply -auto-approve -no-color tfplan     
