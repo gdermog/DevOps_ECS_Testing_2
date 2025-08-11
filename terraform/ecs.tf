@@ -23,7 +23,7 @@ resource "aws_ecs_task_definition" "pospisilv_lesson8" {
   container_definitions = jsonencode([
     {
       name      = "nginxposp"
-      image     = var.aws_container_repo_name
+      image     = var.aws_container_repo_full
       portMappings = [
         {
           containerPort = 80

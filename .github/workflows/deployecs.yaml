@@ -94,6 +94,7 @@ jobs:
           TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TF_VAR_aws_region: ${{ vars.AWS_REGION }}
           TF_VAR_aws_container_repo_name: ${{ vars.AWS_ECR_REPO_NAME }}
+          TF_VAR_aws_container_repo_full: ${{ env.AWS_ECR_TGT }}/${{ vars.AWS_ECR_REPO_NAME }}:latest
           
           TF_IN_AUTOMATION: true
           TF_INPUT: false
