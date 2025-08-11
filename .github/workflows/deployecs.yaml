@@ -84,5 +84,3 @@ jobs:
 #        push: true
 #        context: .
 #        tags: ${{ env.AWS_ECR_TGT }}/${{ vars.AWS_ECR_REPO_NAME }}:latest       
-
-    - 
