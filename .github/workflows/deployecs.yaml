@@ -55,7 +55,6 @@ jobs:
           
           TF_IN_AUTOMATION: true
           TF_INPUT: false
-          TF_WORKSPACE: dev
           
         run: |
           terraform init
@@ -98,7 +97,6 @@ jobs:
           
           TF_IN_AUTOMATION: true
           TF_INPUT: false
-          TF_WORKSPACE: dev
           
         run: |
           terraform init
